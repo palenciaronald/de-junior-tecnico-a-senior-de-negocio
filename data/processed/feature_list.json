@@ -1,0 +1,22 @@
+{
+  "features": [
+    "transaction_count",
+    "day_of_week",
+    "is_weekend",
+    "is_holiday",
+    "is_payday",
+    "is_month_end",
+    "days_to_payday",
+    "trend",
+    "special_event",
+    "month",
+    "lag_1",
+    "lag_7",
+    "lag_14",
+    "lag_28",
+    "rolling_mean_7",
+    "rolling_mean_14",
+    "rolling_std_7"
+  ],
+  "target": "total_withdrawals_cop"
+}

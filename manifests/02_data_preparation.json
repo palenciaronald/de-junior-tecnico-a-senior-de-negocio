@@ -1,0 +1,51 @@
+{
+  "phase": "data-preparation",
+  "status": "GO",
+  "started_at": "2026-07-28T11:38:05.481197",
+  "completed_at": "2026-07-28T11:38:05.481199",
+  "inputs": [
+    "data/raw/daily_withdrawals.csv",
+    "manifests/01_data_understanding.json"
+  ],
+  "outputs": [
+    "notebooks/02_data_preparation.ipynb",
+    "data/processed/train.csv",
+    "data/processed/validation.csv",
+    "data/processed/test.csv",
+    "data/processed/feature_list.json",
+    "reports/02_data_preparation.md",
+    "manifests/02_data_preparation.json"
+  ],
+  "decisions": [
+    "Usar shift(1) en todos los lags y rolling",
+    "Separacion 60/20/20 cronologica",
+    "lag_28 incluido para capturar patrones mensuales",
+    "Test bloqueado hasta evaluation-business"
+  ],
+  "metrics": {
+    "total_features": 17,
+    "train_rows": 421,
+    "validation_rows": 140,
+    "test_rows": 141,
+    "warmup_rows_lost": 28
+  },
+  "assumptions": [
+    "60/20/20 es adecuado para 702 dias utiles",
+    "28 dias de warm-up es aceptable",
+    "transaction_count es del dia D, no D+1"
+  ],
+  "risks": [
+    "Tendencia puede afectar desempeno en test (mas reciente)",
+    "lag_28 pierde mas filas por warm-up"
+  ],
+  "tests_executed": [
+    "leakage_lag1",
+    "leakage_lag7",
+    "leakage_rolling",
+    "target_not_feature",
+    "no_overlap_splits"
+  ],
+  "human_approval_required": true,
+  "human_approved": false,
+  "next_agent": "modeling-tournament"
+}
