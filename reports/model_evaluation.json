@@ -1,0 +1,40 @@
+{
+  "model": {
+    "name": "GradientBoostingRegressor",
+    "version": "1.0.0",
+    "metrics": {
+      "mae": 16774341517.079424,
+      "rmse": 20080871186.208317,
+      "wape": 0.10659367856649808,
+      "pinball_loss_95": 2513638384.848383,
+      "coverage_95": 0.8541666666666666,
+      "high_demand_mae": 20228754527.737263,
+      "mae_billions": 16.774341517079424
+    }
+  },
+  "baselines": {
+    "NaiveLag1": {
+      "mae": 39042001994.736115,
+      "rmse": 48524404856.91333,
+      "wape": 0.24809502101660194,
+      "mae_billions": 39.04200199473611
+    },
+    "NaiveLag7": {
+      "mae": 28704381061.52778,
+      "rmse": 35260224356.19875,
+      "wape": 0.18240391524206262,
+      "mae_billions": 28.70438106152778
+    },
+    "MovingAverage7": {
+      "mae": 26336085451.109127,
+      "rmse": 33020826249.32043,
+      "wape": 0.16735442189590788,
+      "mae_billions": 26.336085451109128
+    }
+  },
+  "comparison": {
+    "beats_all_baselines": true,
+    "improvement_vs_best_baseline_pct": 36.30662556810248,
+    "best_baseline": "MovingAverage7"
+  }
+}

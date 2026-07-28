@@ -26,16 +26,5 @@ Thumbs.db
 # Jupyter
 .ipynb_checkpoints/
 
-# Artifacts generados (se regeneran con el pipeline)
-artifacts/*.joblib
-data/processed/*.csv
-
-# Outputs generados
-outputs/*.csv
-
-# Reports generados
-reports/*.json
-reports/*.md
-
 # No ignorar los .gitkeep
 !**/.gitkeep
