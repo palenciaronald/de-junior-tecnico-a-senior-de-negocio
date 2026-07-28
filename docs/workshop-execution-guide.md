@@ -6,6 +6,48 @@
 
 ---
 
+## Introducción en vivo (15 min antes de ejecutar)
+
+El instructor muestra el repositorio y explica:
+
+### 1. "Tenemos este problema..." (3 min)
+- Mostrar la solicitud ambigua: *"Necesitamos predecir los retiros de mañana"*.
+- Tertuliar con los participantes: ¿eso es suficiente?
+- Llevar a la formulación correcta: *"Determinar cuánto dinero reservar para D+1, reduciendo ocioso sin deteriorar servicio"*.
+
+### 2. "Ya tenemos unas bases preparadas por agilidad..." (5 min)
+- Mostrar la estructura del repo (steering, agentes, specs).
+- Explicar brevemente: "Los agentes tienen instrucciones, el steering tiene el contexto, los specs tienen los requisitos."
+- No entrar en detalle profundo — solo que el participante sepa que existe.
+
+### 3. "Todo empieza aquí" → `docs/product-brief.md` (5 min)
+- Abrir el archivo. Leerlo juntos.
+- **Este es el artefacto donde un senior se sienta a pensar horas.** Sin esto, el modelo no sirve.
+- Señalar: problema, decisión, usuario, KPIs, costos, nivel de servicio.
+- "Un junior se iría directo al código. Un senior empieza aquí."
+
+### 4. "Lo técnico ya está definido" (2 min)
+- `requirements.txt` → librerías pinneadas.
+- Steering de tech → stack cerrado, sin cloud, sin APIs.
+- "Con esto listo, ahora sí: ejecutamos todo a punta de prompts."
+
+---
+
+## Estrategia de respaldo (si un agente tarda demasiado)
+
+La rama `main` tiene la solución completa pre-ejecutada. Si durante el taller un agente se demora o falla:
+
+1. **Opción A:** Reintentar con un prompt más corto.
+2. **Opción B:** Mostrar el resultado pre-generado desde `main`:
+   ```bash
+   git show main:notebooks/03_model_tournament.ipynb > /tmp/nb.ipynb
+   ```
+3. **Opción C:** Abrir el notebook ya ejecutado directamente desde el repo del instructor.
+
+El instructor debe tener una sesión con `main` lista como respaldo en otra ventana/terminal.
+
+---
+
 ## Preparación (antes del taller)
 
 ```bash
