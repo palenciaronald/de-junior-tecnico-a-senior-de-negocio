@@ -1,0 +1,46 @@
+{
+  "version": "1.0.0",
+  "trained_at": "2026-07-28T10:20:03.782717",
+  "train_period": {
+    "start": "2024-07-15",
+    "end": "2026-02-06",
+    "samples": 572
+  },
+  "test_period": {
+    "start": "2026-02-07",
+    "end": "2026-06-30",
+    "samples": 144
+  },
+  "features": [
+    "transaction_count",
+    "day_of_week",
+    "is_weekend",
+    "is_holiday",
+    "is_payday",
+    "is_month_end",
+    "days_to_payday",
+    "trend",
+    "special_event",
+    "lag_1",
+    "lag_7",
+    "lag_14",
+    "rolling_mean_7",
+    "rolling_mean_14",
+    "rolling_std_7",
+    "month"
+  ],
+  "hyperparameters": {
+    "n_estimators": 200,
+    "max_depth": 4,
+    "learning_rate": 0.05,
+    "random_state": 42,
+    "quantile_alpha": 0.95
+  },
+  "metrics_test": {
+    "mae": 16774341517.079424,
+    "rmse": 20080871186.208317,
+    "wape": 0.10659367856649808,
+    "mae_billions": 16.774341517079424
+  },
+  "seed": 42
+}
