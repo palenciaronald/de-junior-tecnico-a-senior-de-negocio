@@ -227,16 +227,45 @@ streamlit run app.py
 
 ## Resumen de comandos
 
-| Fase | Comando |
-|------|---------|
-| 0 | `python -c "import pandas..."` |
-| 1 | `/agent business-understanding` |
-| 2 | `/agent data-understanding` |
-| 3 | `/agent data-preparation` |
-| 4 | `/agent modeling-tournament` |
-| 5 | `/agent evaluation-business` |
-| 6 | `/agent productization-deployment` + `streamlit run app.py` |
-| 7 | Revisión de docs |
+### Opción A: Desde la terminal (CLI)
+
+```bash
+kiro chat --agent business-understanding
+```
+
+Dentro de la sesión, escribir el prompt directamente.
+
+Para cambiar de agente sin salir:
+```
+/agent data-understanding
+```
+
+### Opción B: Desde el chat de Kiro (IDE / VS Code)
+
+Abrir Kiro en VS Code o en el IDE. En el chat, escribir:
+
+```
+/agent business-understanding
+```
+
+Y luego pegar el prompt. Para cambiar de agente:
+
+```
+/agent data-understanding
+```
+
+### Tabla resumen
+
+| Fase | CLI (terminal) | Chat (IDE) |
+|------|---------------|------------|
+| 0 | `python -c "import pandas..."` | Terminal integrada |
+| 1 | `kiro chat --agent business-understanding` | `/agent business-understanding` |
+| 2 | `/agent data-understanding` | `/agent data-understanding` |
+| 3 | `/agent data-preparation` | `/agent data-preparation` |
+| 4 | `/agent modeling-tournament` | `/agent modeling-tournament` |
+| 5 | `/agent evaluation-business` | `/agent evaluation-business` |
+| 6 | `/agent productization-deployment` | `/agent productization-deployment` |
+| 7 | Revisión de docs | Revisión de docs |
 
 ---
 
@@ -252,13 +281,85 @@ streamlit run app.py
 
 ---
 
-## Prompts cortos (referencia rápida del participante)
+## Prompts exactos por fase (copiar y pegar)
 
+### Fase 1 — Business Understanding
+
+**Seleccionar agente:**
+- Terminal: `kiro chat --agent business-understanding`
+- Chat: `/agent business-understanding`
+
+**Prompt (copiar y pegar):**
 ```
-Fase 1: "Valida si el problema de negocio está listo para desarrollo técnico."
-Fase 2: "Genera un notebook EDA orientado a decisiones."
-Fase 3: "Prepara datos con features temporales, valida leakage, separa train/val/test."
-Fase 4: "Torneo de modelos con scorecard MAPE y gráfico backtesting."
-Fase 5: "Evalúa sobre test, traduce a KPIs de negocio, compara políticas."
-Fase 6: "Productiviza: módulos src/, recomendación CSV, dashboard Streamlit."
+Revisa docs/product-brief.md y valida si el problema de negocio está listo para desarrollo técnico. Confirma problema, decisión, usuario, KPI y entregable. Genera el reporte y manifest.
+```
+
+---
+
+### Fase 2 — Data Understanding
+
+**Seleccionar agente:**
+- Terminal: `/agent data-understanding` (si ya estás en kiro) o `kiro chat --agent data-understanding`
+- Chat: `/agent data-understanding`
+
+**Prompt:**
+```
+Analiza data/raw/daily_withdrawals.csv. Genera un notebook con EDA orientada a decisiones: calidad, estacionalidad semanal, efecto quincena, festivos, tendencia y viabilidad predictiva. Cada gráfico debe tener pregunta, hallazgo e implicación.
+```
+
+---
+
+### Fase 3 — Data Preparation
+
+**Seleccionar agente:**
+- Terminal: `/agent data-preparation`
+- Chat: `/agent data-preparation`
+
+**Prompt:**
+```
+Prepara los datos para modelado temporal. Genera features de lags (1,7,14,28), rolling (mean_7, mean_14, std_7) con shift(1), y calendario. Separa en train/validation/test cronológicamente. Valida ausencia de leakage. Exporta los datasets.
+```
+
+---
+
+### Fase 4 — Modeling Tournament
+
+**Seleccionar agente:**
+- Terminal: `/agent modeling-tournament`
+- Chat: `/agent modeling-tournament`
+
+**Prompt:**
+```
+Ejecuta un torneo de modelos sobre validation: baselines (lag-1, lag-7, MA-7) + ElasticNet + GradientBoosting central y cuantil 95. Genera scorecard con MAPE, SMAPE, MAE, RMSE, POE, PUE. Incluye gráfico de backtesting real vs predicho. Si Prophet está disponible, inclúyelo.
+```
+
+---
+
+### Fase 5 — Evaluation Business
+
+**Seleccionar agente:**
+- Terminal: `/agent evaluation-business`
+- Chat: `/agent evaluation-business`
+
+**Prompt:**
+```
+Evalúa los modelos candidatos sobre el test set. Calcula métricas técnicas (MAPE, cobertura Q95) y de negocio (costo total con c_ociosidad=0.0001 y c_faltante=0.0005). Genera gráfico de inferencia real vs predicho. Compara política tradicional (max 7d + 10%) vs política modelo. Selecciona la que cumpla nivel de servicio 95% con menor costo.
+```
+
+---
+
+### Fase 6 — Productization
+
+**Seleccionar agente:**
+- Terminal: `/agent productization-deployment`
+- Chat: `/agent productization-deployment`
+
+**Prompt:**
+```
+Extrae la lógica de los notebooks a módulos en src/. Crea src/decision/ con funciones de costo y políticas. Genera la recomendación diaria en CSV. Construye el dashboard en Streamlit con tarjetas de KPI, gráficos y simulador de costos.
+```
+
+**Después de que el agente termine, ejecutar en terminal:**
+```bash
+streamlit run app.py
 ```
