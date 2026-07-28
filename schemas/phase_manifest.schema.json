@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Phase Manifest",
+  "type": "object",
+  "required": ["phase", "status", "started_at", "completed_at", "inputs", "outputs", "decisions", "metrics", "assumptions", "risks", "tests_executed", "human_approval_required", "human_approved", "next_agent"],
+  "properties": {
+    "phase": {"type": "string"},
+    "status": {"type": "string", "enum": ["GO", "REVISAR", "NO-GO"]},
+    "started_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": "string", "format": "date-time"},
+    "inputs": {"type": "array", "items": {"type": "string"}},
+    "outputs": {"type": "array", "items": {"type": "string"}},
+    "decisions": {"type": "array", "items": {"type": "string"}},
+    "metrics": {"type": "object"},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "risks": {"type": "array", "items": {"type": "string"}},
+    "tests_executed": {"type": "array", "items": {"type": "string"}},
+    "human_approval_required": {"type": "boolean"},
+    "human_approved": {"type": "boolean"},
+    "next_agent": {"type": ["string", "null"]}
+  }
+}
