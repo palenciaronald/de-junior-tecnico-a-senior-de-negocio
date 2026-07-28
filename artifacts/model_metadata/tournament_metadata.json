@@ -1,0 +1,74 @@
+{
+  "tournament_date": "2026-07-28T11:41:38.455073",
+  "seed": 42,
+  "features": [
+    "transaction_count",
+    "day_of_week",
+    "is_weekend",
+    "is_holiday",
+    "is_payday",
+    "is_month_end",
+    "days_to_payday",
+    "trend",
+    "special_event",
+    "month",
+    "lag_1",
+    "lag_7",
+    "lag_14",
+    "lag_28",
+    "rolling_mean_7",
+    "rolling_mean_14",
+    "rolling_std_7"
+  ],
+  "train_samples": 421,
+  "validation_samples": 140,
+  "models": {
+    "elastic_net": {
+      "path": "artifacts/models/elastic_net.joblib",
+      "type": "ElasticNet"
+    },
+    "gbr_central": {
+      "path": "artifacts/models/gbr_central.joblib",
+      "type": "GradientBoostingRegressor",
+      "loss": "squared_error"
+    },
+    "gbr_quantile95": {
+      "path": "artifacts/models/gbr_quantile95.joblib",
+      "type": "GradientBoostingRegressor",
+      "loss": "quantile",
+      "alpha": 0.95
+    }
+  },
+  "leaderboard": [
+    {
+      "model": "Baseline_Lag1",
+      "mae_B": 37.4035305037,
+      "rmse_B": 49.756217617499345,
+      "wape_pct": 24.448715450682773
+    },
+    {
+      "model": "Baseline_Lag7",
+      "mae_B": 30.038144887907144,
+      "rmse_B": 38.31702655532064,
+      "wape_pct": 19.634351280240136
+    },
+    {
+      "model": "Baseline_MA7",
+      "mae_B": 28.311890149151015,
+      "rmse_B": 35.33952310917445,
+      "wape_pct": 18.50598958991611
+    },
+    {
+      "model": "ElasticNet",
+      "mae_B": 20.04379833281253,
+      "rmse_B": 25.32537234061673,
+      "wape_pct": 13.101573979529215
+    },
+    {
+      "model": "GBR_Central",
+      "mae_B": 24.26996912634369,
+      "rmse_B": 31.06749192893191,
+      "wape_pct": 15.863998964165587
+    }
+  ]
+}

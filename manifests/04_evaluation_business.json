@@ -1,0 +1,46 @@
+{
+  "phase": "evaluation-business",
+  "status": "GO",
+  "started_at": "2026-07-28T11:43:53.998388",
+  "completed_at": "2026-07-28T11:43:53.998391",
+  "inputs": [
+    "data/processed/test.csv",
+    "artifacts/models/",
+    "manifests/03_model_tournament.json"
+  ],
+  "outputs": [
+    "notebooks/04_evaluation_business.ipynb",
+    "outputs/test_predictions.csv",
+    "outputs/business_backtest.csv",
+    "outputs/selected_model.json",
+    "reports/04_evaluation_business.md",
+    "manifests/04_evaluation_business.json"
+  ],
+  "decisions": [
+    "Politica seleccionada: Tradicional (max7d+10%)",
+    "Nivel de servicio: 96.5%",
+    "Prediccion != Decision (demostrado)"
+  ],
+  "metrics": {
+    "gbr_central_mae_B": 25.76430912596665,
+    "q95_coverage_pct": 70.92198581560284,
+    "selected_service_level_pct": 96.45390070921985,
+    "selected_cost_total_M": 999.4156584342
+  },
+  "assumptions": [
+    "Costos: ociosidad=0.01%, faltante=0.05%",
+    "Nivel servicio target: 95%"
+  ],
+  "risks": [
+    "Costos son parametros configurables, no fijos",
+    "Cobertura Q95 puede variar en produccion"
+  ],
+  "tests_executed": [
+    "test_set_evaluation",
+    "business_backtest",
+    "policy_comparison"
+  ],
+  "human_approval_required": true,
+  "human_approved": false,
+  "next_agent": "productization-deployment"
+}

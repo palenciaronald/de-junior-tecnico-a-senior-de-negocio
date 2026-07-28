@@ -1,0 +1,50 @@
+{
+  "phase": "modeling-tournament",
+  "status": "GO",
+  "started_at": "2026-07-28T11:41:38.458853",
+  "completed_at": "2026-07-28T11:41:38.458855",
+  "inputs": [
+    "data/processed/train.csv",
+    "data/processed/validation.csv",
+    "manifests/02_data_preparation.json"
+  ],
+  "outputs": [
+    "notebooks/03_model_tournament.ipynb",
+    "artifacts/models/elastic_net.joblib",
+    "artifacts/models/gbr_central.joblib",
+    "artifacts/models/gbr_quantile95.joblib",
+    "artifacts/model_metadata/tournament_metadata.json",
+    "outputs/model_leaderboard.csv",
+    "outputs/validation_predictions.csv",
+    "reports/03_model_tournament.md",
+    "manifests/03_model_tournament.json"
+  ],
+  "decisions": [
+    "GBR Central es el mejor candidato en validation",
+    "Ganador definitivo se selecciona en evaluation-business",
+    "Test set permanece bloqueado"
+  ],
+  "metrics": {
+    "best_model_validation": "GBR_Central",
+    "best_mae_B": 20.04379833281253,
+    "best_wape_pct": 13.101573979529215,
+    "gbr_q95_coverage_pct": 77.85714285714286,
+    "models_evaluated": 5
+  },
+  "assumptions": [
+    "Mismas features para todos los modelos",
+    "Semilla fija 42"
+  ],
+  "risks": [
+    "GBR puede sobreajustar si validation es corto",
+    "Cobertura Q95 puede ser menor en test"
+  ],
+  "tests_executed": [
+    "baselines_evaluated",
+    "models_persisted",
+    "leaderboard_generated"
+  ],
+  "human_approval_required": true,
+  "human_approved": false,
+  "next_agent": "evaluation-business"
+}
