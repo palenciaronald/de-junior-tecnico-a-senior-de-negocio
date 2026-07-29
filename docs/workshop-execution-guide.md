@@ -79,13 +79,17 @@ kiro --version
 
 **El instructor dice:** "Antes de escribir código, validamos que entendemos el problema. No es solo 'predecir retiros' — es decidir cuánto reservar."
 
-**El participante ejecuta en Kiro:**
-```
-/agent business-understanding
-```
+**El participante abre Kiro y selecciona el agente:**
 
-**Prompt:**
-> Revisa docs/product-brief.md y valida si el problema de negocio está listo para desarrollo técnico. Confirma problema, decisión, usuario, KPI y entregable.
+| Desde | Comando |
+|-------|---------|
+| Terminal (CLI) | `kiro chat --agent business-understanding` |
+| Chat en IDE | `/agent business-understanding` |
+
+**Luego pega este prompt:**
+```
+Revisa docs/product-brief.md y valida si el problema de negocio está listo para desarrollo técnico. Confirma problema, decisión, usuario, KPI y entregable. Genera el reporte y manifest.
+```
 
 **El agente produce:**
 - `reports/00_business_understanding.md`
@@ -101,13 +105,17 @@ kiro --version
 
 **El instructor dice:** "Ahora el agente va a explorar los datos. No es un EDA infinito — cada gráfico responde una pregunta."
 
-**El participante ejecuta:**
-```
-/agent data-understanding
-```
+**Seleccionar agente:**
+
+| Desde | Comando |
+|-------|---------|
+| Terminal (CLI) | `/agent data-understanding` (o `kiro chat --agent data-understanding`) |
+| Chat en IDE | `/agent data-understanding` |
 
 **Prompt:**
-> Analiza data/raw/daily_withdrawals.csv. Genera un notebook con EDA orientada a decisiones: calidad, estacionalidad, tendencia y viabilidad predictiva.
+```
+Analiza data/raw/daily_withdrawals.csv. Genera un notebook con EDA orientada a decisiones: calidad, estacionalidad semanal, efecto quincena, festivos, tendencia y viabilidad predictiva. Cada gráfico debe tener pregunta, hallazgo e implicación.
+```
 
 **El agente produce:**
 - `notebooks/01_data_understanding.ipynb` (ejecutado)
@@ -130,13 +138,17 @@ kiro --version
 
 **El instructor dice:** "Ahora construimos las features. La regla de oro: NUNCA usar información del futuro. Todo lag y rolling debe usar shift(1)."
 
-**El participante ejecuta:**
-```
-/agent data-preparation
-```
+**Seleccionar agente:**
+
+| Desde | Comando |
+|-------|---------|
+| Terminal (CLI) | `/agent data-preparation` |
+| Chat en IDE | `/agent data-preparation` |
 
 **Prompt:**
-> Prepara los datos para modelado: genera features de lags, rolling y calendario. Separa train/validation/test cronológicamente. Valida ausencia de leakage.
+```
+Prepara los datos para modelado temporal. Genera features de lags (1,7,14,28), rolling (mean_7, mean_14, std_7) con shift(1), y calendario. Separa en train/validation/test cronológicamente. Valida ausencia de leakage. Exporta los datasets.
+```
 
 **El agente produce:**
 - `notebooks/02_data_preparation.ipynb` (ejecutado)
@@ -156,13 +168,17 @@ kiro --version
 
 **El instructor dice:** "Ahora comparamos modelos. No buscamos el más sofisticado — buscamos el que soporte mejor la decisión. El test sigue bloqueado."
 
-**El participante ejecuta:**
-```
-/agent modeling-tournament
-```
+**Seleccionar agente:**
+
+| Desde | Comando |
+|-------|---------|
+| Terminal (CLI) | `/agent modeling-tournament` |
+| Chat en IDE | `/agent modeling-tournament` |
 
 **Prompt:**
-> Ejecuta un torneo de modelos sobre validation: 3 baselines + ElasticNet + GradientBoosting (central y cuantil 95). Genera scorecard con MAPE y gráfico de backtesting real vs predicho. Si Prophet está disponible, inclúyelo.
+```
+Ejecuta un torneo de modelos sobre validation: baselines (lag-1, lag-7, MA-7) + ElasticNet + GradientBoosting central y cuantil 95. Genera scorecard con MAPE, SMAPE, MAE, RMSE, POE, PUE. Incluye gráfico de backtesting real vs predicho. Si Prophet está disponible, inclúyelo.
+```
 
 **El agente produce:**
 - `notebooks/03_model_tournament.ipynb` (ejecutado con scorecard y gráficos)
@@ -185,13 +201,17 @@ kiro --version
 
 **El instructor dice:** "Ahora SÍ usamos el test. Pero no solo medimos error técnico — traducimos a dinero: ¿cuánto cuesta equivocarse?"
 
-**El participante ejecuta:**
-```
-/agent evaluation-business
-```
+**Seleccionar agente:**
+
+| Desde | Comando |
+|-------|---------|
+| Terminal (CLI) | `/agent evaluation-business` |
+| Chat en IDE | `/agent evaluation-business` |
 
 **Prompt:**
-> Evalúa los modelos candidatos sobre test. Calcula métricas técnicas (MAPE) y de negocio (costo total, dinero ocioso, faltante, nivel de servicio). Genera gráfico de inferencia (real vs predicho) y compara políticas de reserva.
+```
+Evalúa los modelos candidatos sobre el test set. Calcula métricas técnicas (MAPE, cobertura Q95) y de negocio (costo total con c_ociosidad=0.0001 y c_faltante=0.0005). Genera gráfico de inferencia real vs predicho. Compara política tradicional (max 7d + 10%) vs política modelo. Selecciona la que cumpla nivel de servicio 95% con menor costo.
+```
 
 **El agente produce:**
 - `notebooks/04_evaluation_business.ipynb` (ejecutado)
@@ -214,15 +234,19 @@ kiro --version
 
 **El instructor dice:** "El agente ahora convierte todo esto en un producto consumible. Un analista de tesorería va a ver este tablero — no le importa el RMSE, le importa cuánto reservar."
 
-**El participante ejecuta:**
-```
-/agent productization-deployment
-```
+**Seleccionar agente:**
+
+| Desde | Comando |
+|-------|---------|
+| Terminal (CLI) | `/agent productization-deployment` |
+| Chat en IDE | `/agent productization-deployment` |
 
 **Prompt:**
-> Extrae la lógica a módulos en src/, genera la recomendación diaria en CSV, y construye el dashboard en Streamlit con simulador de costos.
+```
+Extrae la lógica de los notebooks a módulos en src/. Crea src/decision/ con funciones de costo y políticas. Genera la recomendación diaria en CSV. Construye el dashboard en Streamlit con tarjetas de KPI, gráficos y simulador de costos.
+```
 
-**Luego, ejecutar el dashboard:**
+**Después de que el agente termine, ejecutar en terminal (o terminal integrada del IDE):**
 ```bash
 streamlit run app.py
 ```
@@ -323,85 +347,13 @@ Y luego pegar el prompt. Para cambiar de agente:
 
 ---
 
-## Prompts exactos por fase (copiar y pegar)
+## Prompts de referencia rápida (copiar y pegar)
 
-### Fase 1 — Business Understanding
-
-**Seleccionar agente:**
-- Terminal: `kiro chat --agent business-understanding`
-- Chat: `/agent business-understanding`
-
-**Prompt (copiar y pegar):**
-```
-Revisa docs/product-brief.md y valida si el problema de negocio está listo para desarrollo técnico. Confirma problema, decisión, usuario, KPI y entregable. Genera el reporte y manifest.
-```
-
----
-
-### Fase 2 — Data Understanding
-
-**Seleccionar agente:**
-- Terminal: `/agent data-understanding` (si ya estás en kiro) o `kiro chat --agent data-understanding`
-- Chat: `/agent data-understanding`
-
-**Prompt:**
-```
-Analiza data/raw/daily_withdrawals.csv. Genera un notebook con EDA orientada a decisiones: calidad, estacionalidad semanal, efecto quincena, festivos, tendencia y viabilidad predictiva. Cada gráfico debe tener pregunta, hallazgo e implicación.
-```
-
----
-
-### Fase 3 — Data Preparation
-
-**Seleccionar agente:**
-- Terminal: `/agent data-preparation`
-- Chat: `/agent data-preparation`
-
-**Prompt:**
-```
-Prepara los datos para modelado temporal. Genera features de lags (1,7,14,28), rolling (mean_7, mean_14, std_7) con shift(1), y calendario. Separa en train/validation/test cronológicamente. Valida ausencia de leakage. Exporta los datasets.
-```
-
----
-
-### Fase 4 — Modeling Tournament
-
-**Seleccionar agente:**
-- Terminal: `/agent modeling-tournament`
-- Chat: `/agent modeling-tournament`
-
-**Prompt:**
-```
-Ejecuta un torneo de modelos sobre validation: baselines (lag-1, lag-7, MA-7) + ElasticNet + GradientBoosting central y cuantil 95. Genera scorecard con MAPE, SMAPE, MAE, RMSE, POE, PUE. Incluye gráfico de backtesting real vs predicho. Si Prophet está disponible, inclúyelo.
-```
-
----
-
-### Fase 5 — Evaluation Business
-
-**Seleccionar agente:**
-- Terminal: `/agent evaluation-business`
-- Chat: `/agent evaluation-business`
-
-**Prompt:**
-```
-Evalúa los modelos candidatos sobre el test set. Calcula métricas técnicas (MAPE, cobertura Q95) y de negocio (costo total con c_ociosidad=0.0001 y c_faltante=0.0005). Genera gráfico de inferencia real vs predicho. Compara política tradicional (max 7d + 10%) vs política modelo. Selecciona la que cumpla nivel de servicio 95% con menor costo.
-```
-
----
-
-### Fase 6 — Productization
-
-**Seleccionar agente:**
-- Terminal: `/agent productization-deployment`
-- Chat: `/agent productization-deployment`
-
-**Prompt:**
-```
-Extrae la lógica de los notebooks a módulos en src/. Crea src/decision/ con funciones de costo y políticas. Genera la recomendación diaria en CSV. Construye el dashboard en Streamlit con tarjetas de KPI, gráficos y simulador de costos.
-```
-
-**Después de que el agente termine, ejecutar en terminal:**
-```bash
-streamlit run app.py
-```
+| Fase | Agente | Prompt |
+|------|--------|--------|
+| 1 | `business-understanding` | Revisa docs/product-brief.md y valida si el problema de negocio está listo para desarrollo técnico. Confirma problema, decisión, usuario, KPI y entregable. Genera el reporte y manifest. |
+| 2 | `data-understanding` | Analiza data/raw/daily_withdrawals.csv. Genera un notebook con EDA orientada a decisiones: calidad, estacionalidad semanal, efecto quincena, festivos, tendencia y viabilidad predictiva. Cada gráfico debe tener pregunta, hallazgo e implicación. |
+| 3 | `data-preparation` | Prepara los datos para modelado temporal. Genera features de lags (1,7,14,28), rolling (mean_7, mean_14, std_7) con shift(1), y calendario. Separa en train/validation/test cronológicamente. Valida ausencia de leakage. Exporta los datasets. |
+| 4 | `modeling-tournament` | Ejecuta un torneo de modelos sobre validation: baselines (lag-1, lag-7, MA-7) + ElasticNet + GradientBoosting central y cuantil 95. Genera scorecard con MAPE, SMAPE, MAE, RMSE, POE, PUE. Incluye gráfico de backtesting real vs predicho. Si Prophet está disponible, inclúyelo. |
+| 5 | `evaluation-business` | Evalúa los modelos candidatos sobre el test set. Calcula métricas técnicas (MAPE, cobertura Q95) y de negocio (costo total con c_ociosidad=0.0001 y c_faltante=0.0005). Genera gráfico de inferencia real vs predicho. Compara política tradicional (max 7d + 10%) vs política modelo. Selecciona la que cumpla nivel de servicio 95% con menor costo. |
+| 6 | `productization-deployment` | Extrae la lógica de los notebooks a módulos en src/. Crea src/decision/ con funciones de costo y políticas. Genera la recomendación diaria en CSV. Construye el dashboard en Streamlit con tarjetas de KPI, gráficos y simulador de costos. |
