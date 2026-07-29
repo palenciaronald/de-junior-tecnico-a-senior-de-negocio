@@ -1,31 +1,23 @@
 {
-  "selected_policy": "Tradicional (max7d+10%)",
-  "model_path": "artifacts/models/elastic_net.joblib",
+  "selected_policy": "Tradicional (max7d + 10%)",
   "central_model_path": "artifacts/models/gbr_central.joblib",
   "quantile_model_path": "artifacts/models/gbr_quantile95.joblib",
   "metrics_test": {
+    "gbr_central_mape_pct": 15.874511983160891,
     "gbr_central_mae_B": 25.76430912596665,
-    "gbr_central_wape_pct": 16.318132804986142,
-    "q95_coverage_pct": 70.92198581560284,
-    "q95_pinball_B": 3.8919939605691143
+    "q95_coverage_pct": 70.92198581560284
   },
-  "business_metrics": {
-    "total_cost_daily_mean": 7088054.315136171,
-    "idle_daily_mean_B": 65.58038197273405,
-    "shortage_daily_mean_B": 1.0600322357255312,
-    "days_with_shortage_pct": 3.546099290780142,
+  "business_kpis": {
     "service_level_pct": 96.45390070921985,
-    "total_cost_period": 999415658.4342,
-    "policy": "Tradicional (max7d+10%)"
-  },
-  "comparison_vs_traditional": {
-    "traditional_cost": 999415658.4342,
-    "model_cost": 999415658.4342,
-    "saving_pct": 0.0
+    "cost_total_period_M": 999.4156584342,
+    "idle_daily_mean_B": 65.58038197273405,
+    "shortage_days_pct": 3.546099290780142,
+    "saving_vs_traditional_M": 0.0,
+    "saving_vs_traditional_pct": 0.0
   },
   "cost_params": {
     "cost_idle": 0.0001,
     "cost_shortage": 0.0005,
-    "service_level": 0.95
+    "service_level_target": 0.95
   }
 }

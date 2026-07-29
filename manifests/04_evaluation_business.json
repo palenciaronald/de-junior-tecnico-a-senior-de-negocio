@@ -1,8 +1,8 @@
 {
   "phase": "evaluation-business",
   "status": "GO",
-  "started_at": "2026-07-28T11:43:53.998388",
-  "completed_at": "2026-07-28T11:43:53.998391",
+  "started_at": "2026-07-29T13:39:09.916596",
+  "completed_at": "2026-07-29T13:39:09.916602",
   "inputs": [
     "data/processed/test.csv",
     "artifacts/models/",
@@ -13,32 +13,37 @@
     "outputs/test_predictions.csv",
     "outputs/business_backtest.csv",
     "outputs/selected_model.json",
-    "reports/04_evaluation_business.md",
     "manifests/04_evaluation_business.json"
   ],
   "decisions": [
-    "Politica seleccionada: Tradicional (max7d+10%)",
-    "Nivel de servicio: 96.5%",
-    "Prediccion != Decision (demostrado)"
+    "Politica seleccionada: Tradicional (max7d + 10%)",
+    "Servicio: 96.5%",
+    "Ahorro vs tradicional: 0M COP"
   ],
   "metrics": {
+    "gbr_central_mape_pct": 15.874511983160891,
     "gbr_central_mae_B": 25.76430912596665,
     "q95_coverage_pct": 70.92198581560284,
-    "selected_service_level_pct": 96.45390070921985,
-    "selected_cost_total_M": 999.4156584342
+    "service_level_pct": 96.45390070921985,
+    "cost_total_period_M": 999.4156584342,
+    "idle_daily_mean_B": 65.58038197273405,
+    "shortage_days_pct": 3.546099290780142,
+    "saving_vs_traditional_M": 0.0,
+    "saving_vs_traditional_pct": 0.0
   },
   "assumptions": [
     "Costos: ociosidad=0.01%, faltante=0.05%",
     "Nivel servicio target: 95%"
   ],
   "risks": [
-    "Costos son parametros configurables, no fijos",
+    "Costos son parametros configurables",
     "Cobertura Q95 puede variar en produccion"
   ],
   "tests_executed": [
-    "test_set_evaluation",
+    "test_evaluation",
     "business_backtest",
-    "policy_comparison"
+    "policy_comparison",
+    "kpi_translation"
   ],
   "human_approval_required": true,
   "human_approved": false,
